@@ -10,13 +10,42 @@
 
 @interface AppDelegate ()
 
+@property (nonatomic, strong) HJKIntroductionViewController *introductionView;
+
 @end
 
 @implementation AppDelegate
 
 
-- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
+{
+
+     [NSThread sleepForTimeInterval:1.5];//延长1秒
+    
+    _view = [[ViewController alloc]init];
+    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    self.window.rootViewController = _view;
+    [self.window addSubview:_view.view];
+    [self.window makeKeyAndVisible];
+    
+    NSArray *coverImageNames = @[@"img_index_01txt", @"img_index_02txt", @"img_index_03txt"];
+    NSArray *backgroundImageNames = @[@"img_index_01bg", @"img_index_02bg", @"img_index_03bg"];
+    self.introductionView = [[HJKIntroductionViewController alloc] initWithCoverImageNames:coverImageNames backgroundImageNames:backgroundImageNames];
+    
+    [self.window addSubview:self.introductionView.view];
+    
+    __weak AppDelegate *weakSelf = self;
+    self.introductionView.didSelectedEnter = ^() {
+        
+        [UIView animateWithDuration:1.2 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+            weakSelf.introductionView.view.alpha = 0;
+        } completion:^(BOOL finished) {
+            [weakSelf.introductionView.view removeFromSuperview];
+            weakSelf.introductionView = nil;
+        }];
+        
+    };
+        
     return YES;
 }
 

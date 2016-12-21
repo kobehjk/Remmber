@@ -7,11 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ViewController.h"
+#import "HJKIntroductionViewController.h"
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
-
+@property (strong, nonatomic) ViewController *view;
 
 @end
 

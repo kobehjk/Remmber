@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "GLIRViewController.h"
 
-@interface ViewController : UIViewController
+@interface ViewController : GLIRViewController
 
 
 @end
